@@ -8,13 +8,36 @@ void bubbleSort(int *array, size_t size);
 
 void printArray(int *array, size_t size);
 
+void selectionSort(int *array, size_t size);
+
+size_t findMinIndexR(int *array, size_t  size);
+
 int main()
 {
     int array[] = {2, 6, 3, 8, 7, 4, 5, 2};
     printArray(array, sizear(array));
 
-    bubbleSort(array, sizear(array));
+    selectionSort(array, sizear(array));
     printArray(array, sizear(array));
+}
+
+
+void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void printArray(int *array, size_t size)
+{
+    assert(array);
+
+    for (size_t i = 0; i < size; i++)
+    {
+        printf("%d ", array[i]);
+    }
+    putchar('\n');
 }
 
 void bubbleSort(int *array, size_t size)
@@ -39,20 +62,34 @@ void bubbleSort(int *array, size_t size)
     }
 }
 
-void swap(int *a, int *b)
-{
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-void printArray(int *array, size_t size)
+void selectionSort(int *array, size_t size)
 {
     assert(array);
 
     for (size_t i = 0; i < size; i++)
     {
-        printf("%d ", array[i]);
+        size_t minIndex = findMinIndexR(array + i, size - i) + i;
+        //printf("i = %lld, imin = %lld, arr[i] = %d, arr[imin] = %d\n",
+                //i, minIndex, array[i], array[minIndex]);
+        if (array[minIndex] < array[i])
+        {
+            swap(&array[i], &array[minIndex]);
+            //printf("swapped. now arr[i] = %d, arr[imin] = %d\n", array[i], array[minIndex]);
+        }
     }
-    putchar('\n');
+}
+
+size_t findMinIndexR(int *array, size_t size)
+{
+    assert(array);
+
+    size_t minIndex = 0;
+    for (size_t i = 1; i < size; i++)
+    {
+        if (array[i] <= array[minIndex])
+        {
+            minIndex = i;
+        }
+    }
+    return minIndex;
 }
