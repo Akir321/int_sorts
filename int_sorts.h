@@ -19,4 +19,8 @@ size_t partition(int *array, size_t left, size_t right);
 
 void colourfulPrintArray(int *array, size_t left, size_t right, size_t mid);
 
+size_t min(size_t a, size_t b);
+
+int compNum(const void *a, const void *b);
+
 #endif //INT_SORTS_H

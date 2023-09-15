@@ -4,14 +4,20 @@
 #include "colors.h"
 #define sizear(arr)  sizeof(arr) / sizeof(arr[0])
 
-const int SIZE = 8; // for debug printing
+//const int SIZE = 8; // for debug printing
+const int SIZE = 25;
+//const int SIZE = 13;
 int main()
 {
-    int array[] = {2, 6, 3, 8, 7, 4, 5, 2};
+    //int array[] = {2, 6, 3, 8, 7, 4, 5, 2};
+    int array[] = {5, 6, 7, 3, 3, 3, 4, 5, 3, 9, 9, 13, 4, 2, 45, 56, 3, 1, 2, 2, 7, 4, 14, 7, 9};
     printArray(array, sizear(array));
 
     quickSort(array, 0, sizear(array)  - 1);
     printArray(array, sizear(array));
+
+    //qsort(array, sizear(array), sizeof(int), compNum);
+    //printArray(array, sizear(array));
 }
 
 
@@ -91,18 +97,13 @@ void quickSort(int *array, size_t left, size_t right)
 {
     assert(array);
 
-    if (left > right)
-    {
-        return ;
-    }
-
     printf("left = %lld, right = %lld\n", left, right);
 
-    if (right <= left + 1)
+    if (left >= right)
     {                      
         return ;
     }
-    else if (right == left + 2)
+    else if (left + 1 >= right)
     {
         if (array[right] < array[left])
         {
@@ -146,6 +147,12 @@ size_t partition(int *array, size_t left, size_t right)
         left++;
         colourfulPrintArray(array, left, right, mid);
     }
+    mid = min(left, right);
+    if (array[mid] > pivot)
+    {
+        mid--;
+    }
+    printf("mid = %lld, left = %lld, right = %lld\n", mid, left, right);
     return mid;
 }
 
@@ -166,4 +173,20 @@ void colourfulPrintArray(int *array, size_t left, size_t right, size_t mid)
     }
     printf(DEFAULT_COLOR);
     putchar('\n');
+}
+
+size_t min(size_t a, size_t b)
+{
+    return (a < b) ? a : b;
+}
+
+int compNum(const void *a, const void *b)
+{
+    assert(a);
+    assert(b);
+
+    int n1 = *(const int *)a;
+    int n2 = *(const int *)b;
+
+    return n1 - n2;
 }
